@@ -1,3 +1,49 @@
+CREATE TABLE SAILORS (
+    sid INT PRIMARY KEY,
+    sname VARCHAR(50),
+    rating INT,
+    age INT
+);
+
+CREATE TABLE BOAT (
+    bid INT PRIMARY KEY,
+    bname VARCHAR(50),
+    color VARCHAR(30)
+);
+
+CREATE TABLE RSERVERS (
+    sid INT,
+    bid INT,
+    date DATE,
+    PRIMARY KEY (sid, bid, date),
+    FOREIGN KEY (sid) REFERENCES SAILORS(sid),
+    FOREIGN KEY (bid) REFERENCES BOAT(bid)
+);
+
+
+INSERT INTO SAILORS (sid, sname, rating, age) VALUES
+(1, 'Albert', 9, 30),
+(2, 'Bob', 7, 40),
+(3, 'Charlie', 8, 25),
+(4, 'David', 6, 35),
+(5, 'Eva', 10, 50);
+
+INSERT INTO BOAT (bid, bname, color) VALUES
+(101, 'Stormy', 'Red'),
+(102, 'Sea Breeze', 'Blue'),
+(103, 'Ocean', 'Green'),
+(104, 'Tornado', 'Black'),
+(105, 'Whirlwind', 'White');
+
+INSERT INTO RSERVERS (sid, bid, date) VALUES
+(1, 101, '2021-05-01'),
+(2, 102, '2021-05-10'),
+(3, 103, '2021-06-15'),
+(4, 104, '2021-07-01'),
+(5, 105, '2021-08-10');
+
+
+
 -- 1. Find the colours of boats reserved by Albert  
 SELECT DISTINCT B.color
 FROM BOAT B
@@ -31,7 +77,7 @@ WHERE NOT EXISTS (
     WHERE NOT EXISTS (
         SELECT R.sid FROM RSERVERS R
         WHERE R.bid = B.bid AND R.sid = S.sid
-    )
+    ) 
 );
 
 -- 5. Find the name and age of the oldest sailor.
