@@ -102,7 +102,7 @@ LEFT JOIN `Order` O ON C.Cust# = O.Cust#
 GROUP BY C.cname;
 
 --4. Delete all orders for customer named "Kumar".
-Delete from orders where cust = (select cust from customer wehre cname = "kumar") 
+Delete from orders where cust = (select cust from customer where cname = "kumar") 
 
 
 --5. Find the item with the maximum unit price.
